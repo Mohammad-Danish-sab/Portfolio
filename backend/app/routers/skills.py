@@ -16,7 +16,7 @@ def get_skills(db: Session = Depends(get_db)):
 @router.post("/", response_model=SkillResponse, status_code=status.HTTP_201_CREATED)
 def create_skill(
     skill: SkillCreate,
-    admin_key: str = Header(None),
+    admin_key: str = Header(None, alias="x-admin-key"),
     db: Session = Depends(get_db)
 ):
     if admin_key != settings.ADMIN_SECRET_KEY:
@@ -34,7 +34,7 @@ def create_skill(
 @router.delete("/{skill_id}")
 def delete_skill(
     skill_id: int,
-    admin_key: str = Header(None),
+    admin_key: str = Header(None, alias="x-admin-key"),
     db: Session = Depends(get_db)
 ):
     if admin_key != settings.ADMIN_SECRET_KEY:
