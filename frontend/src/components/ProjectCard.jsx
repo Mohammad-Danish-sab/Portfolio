@@ -1,13 +1,13 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, Github } from "lucide-react";
+import { Github } from "lucide-react";
+import { API_BASE_URL } from "../services/api";
 
 export const ProjectCard = ({ project }) => {
   return (
     <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
       <Link to={`/projects/${project.id}`}>
         <img
-          src={`http://localhost:8000${project.image_url}`}
+          src={`${API_BASE_URL}${project.image_url}`}
           alt={project.title}
           className="w-full h-48 object-cover rounded-xl mb-4 cursor-pointer hover:opacity-95 transition-opacity"
         />

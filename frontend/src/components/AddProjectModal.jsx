@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { X, Upload, Lock } from "lucide-react";
 import { createProject } from "../services/api";
 

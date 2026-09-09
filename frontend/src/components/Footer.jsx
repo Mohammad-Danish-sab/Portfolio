@@ -1,4 +1,3 @@
-import React from "react";
 import { Code2, ArrowUpRight } from "lucide-react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 

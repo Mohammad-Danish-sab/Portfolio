@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { sendContactMessage } from '../services/api';
 import { Mail, MapPin, Send, CheckCircle } from 'lucide-react';
 
@@ -13,7 +13,7 @@ export const Contact = () => {
       await sendContactMessage(formData);
       setStatus({ loading: false, success: true, error: null });
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (err) {
+    } catch (error) {
       setStatus({ loading: false, success: false, error: "Failed to send message. Please try again." });
     }
   };

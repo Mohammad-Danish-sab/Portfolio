@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Code, Bot, Workflow, Layers } from "lucide-react";
 

@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Plus, Pencil, Trash2 } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { fetchProjects } from "../services/api";
+import { API_BASE_URL, fetchProjects } from "../services/api";
 import { AddProjectModal } from "./AddProjectModal";
 import { EditProjectModal } from "./EditProjectModal";
 
 const categories = ["All", "Full Stack", "AI / ML", "Automation"];
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 const getImageUrl = (path) => {
   if (!path) return "";

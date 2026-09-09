@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
@@ -9,7 +8,7 @@ import { Services } from "./components/Services";
 import { Experience } from "./components/Experience";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
-import { ProjectDetail } from "./components/ProjectDetail"; // 🟢 Added
+import { ProjectDetail } from "./components/ProjectDetail"; 
 
 function Home() {
   return (

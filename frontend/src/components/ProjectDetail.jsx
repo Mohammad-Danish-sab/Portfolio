@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { fetchProjectById } from "../services/api";
+import { API_BASE_URL, fetchProjectById } from "../services/api";
 import { ArrowLeft, ExternalLink, Code2, Layers } from "lucide-react";
 
 export const ProjectDetail = () => {
@@ -94,7 +94,7 @@ export const ProjectDetail = () => {
         {project.image_url && (
           <div className="rounded-2xl overflow-hidden mb-8 border border-gray-100 shadow-sm">
             <img
-              src={`http://localhost:8000${project.image_url}`}
+              src={`${API_BASE_URL}${project.image_url}`}
               alt={project.title}
               className="w-full h-87.5 md:h-112.5 object-cover"
             />
@@ -140,7 +140,7 @@ export const ProjectDetail = () => {
                   className="rounded-xl overflow-hidden border border-gray-200 shadow-sm"
                 >
                   <img
-                    src={`http://localhost:8000${screenshot}`}
+                    src={`${API_BASE_URL}${screenshot}`}
                     alt={`${project.title} screenshot ${index + 1}`}
                     className="w-full h-52 object-cover hover:scale-105 transition-transform duration-300"
                   />
