@@ -12,7 +12,8 @@ from app.core.database import get_db
 from app.models.project import Project
 from app.schemas.project import ProjectResponse
 
-router = APIRouter(prefix="/api/v1/projects", tags=["Projects"])
+# Note: prefix is empty because main.py mounts this router with prefix="/api/v1"
+router = APIRouter(prefix="/projects", tags=["Projects"])
 
 UPLOAD_DIR = "static/uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -54,7 +55,6 @@ def parse_technologies(technologies_input: str) -> List[str]:
 
 # --- PUBLIC ROUTES ---
 
-
 @router.get("", response_model=List[ProjectResponse])
 @router.get("/", response_model=List[ProjectResponse])
 def get_all_projects(category: Optional[str] = None, db: Session = Depends(get_db)):
@@ -74,13 +74,8 @@ def get_project_by_id(project_id: int, db: Session = Depends(get_db)):
 
 # --- ADMIN-ONLY ROUTES ---
 
-
-@router.post(
-    "", response_model=ProjectResponse, status_code=status.HTTP_201_CREATED
-)
-@router.post(
-    "/", response_model=ProjectResponse, status_code=status.HTTP_201_CREATED
-)
+@router.post("", response_model=ProjectResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=ProjectResponse, status_code=status.HTTP_201_CREATED)
 async def create_project(
     title: str = Form(...),
     description: str = Form(...),
@@ -90,7 +85,7 @@ async def create_project(
     live_url: Optional[str] = Form(None),
     image: Optional[UploadFile] = File(None),
     screenshots: List[UploadFile] = File(default=[]),
-    x_admin_key: str = Header(..., alias="x-admin-key"),  # 🟢 Read from header
+    x_admin_key: str = Header(..., alias="x-admin-key"),
     db: Session = Depends(get_db),
 ):
     verify_admin_key(x_admin_key)
@@ -129,7 +124,7 @@ async def update_project(
     live_url: Optional[str] = Form(None),
     image: Optional[UploadFile] = File(None),
     screenshots: List[UploadFile] = File(default=[]),
-    x_admin_key: str = Header(..., alias="x-admin-key"),  # 🟢 Read from header
+    x_admin_key: str = Header(..., alias="x-admin-key"),
     db: Session = Depends(get_db),
 ):
     verify_admin_key(x_admin_key)
@@ -164,7 +159,7 @@ async def update_project(
 @router.delete("/{project_id}", status_code=status.HTTP_200_OK)
 def delete_project(
     project_id: int,
-    x_admin_key: str = Header(..., alias="x-admin-key"),  # 🟢 Read from header
+    x_admin_key: str = Header(..., alias="x-admin-key"),
     db: Session = Depends(get_db),
 ):
     verify_admin_key(x_admin_key)

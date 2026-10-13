@@ -6,11 +6,11 @@ import os
 from app.core.config import settings
 from app.core.database import Base, engine
 
-# Import model modules directly to register schemas in Base.metadata
+# Import model modules to register tables in Base.metadata
 from app.models import project, contact, skill 
 from app.routers import projects, contact as contact_router, skills 
 
-# Creates 'skills' and all other registered tables in PostgreSQL
+# Create database tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -22,11 +22,12 @@ app = FastAPI(
 os.makedirs("static/uploads", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Parse allowed origins cleanly from settings or fallback list
 origins = [
     origin.strip()
     for origin in settings.ALLOWED_ORIGINS.split(",")
     if origin.strip()
-]
+] if hasattr(settings, "ALLOWED_ORIGINS") else ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,9 +37,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(projects.router)
-app.include_router(contact_router.router)
-app.include_router(skills.router, prefix=f"{settings.API_V1_STR}/skills", tags=["skills"])
+# Include routers with explicit API V1 prefixes
+app.include_router(projects.router, prefix=f"{settings.API_V1_STR}", tags=["Projects"])
+app.include_router(contact_router.router, prefix=f"{settings.API_V1_STR}", tags=["Contact"])
+app.include_router(skills.router, prefix=f"{settings.API_V1_STR}", tags=["Skills"])
 
 @app.get("/")
 def root():

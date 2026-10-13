@@ -22,27 +22,23 @@ export const sendContactMessage = (contactData) =>
 
 // ---------------- ADMIN PROTECTED APIS ---------------- //
 
-// Upload a new project with files (Pass adminKey from form state)
 export const createProject = (projectData, adminKey) =>
   API.post("/projects/", projectData, {
     headers: {
-      "x-admin-key": adminKey, // 🟢 Updated to match FastAPI alias
+      "x-admin-key": adminKey,
       "Content-Type": "multipart/form-data",
     },
   });
 
-// Fetch all skills
 export const fetchSkills = () => API.get("/skills/");
 
-// Create skill (Pass adminKey from form state)
 export const createSkill = (skillData, adminKey) =>
   API.post("/skills/", skillData, {
     headers: {
-      "x-admin-key": adminKey, // 🟢 Updated to match FastAPI alias
+      "x-admin-key": adminKey,
     },
   });
 
-// Delete skill (Pass adminKey from form state)
 export const deleteSkill = (id, adminKey) => {
   if (!id) {
     console.error("deleteSkill error: No valid skill ID provided.");
@@ -50,7 +46,7 @@ export const deleteSkill = (id, adminKey) => {
   }
   return API.delete(`/skills/${id}`, {
     headers: {
-      "x-admin-key": adminKey, // 🟢 Updated to match FastAPI alias
+      "x-admin-key": adminKey,
     },
   });
 };
