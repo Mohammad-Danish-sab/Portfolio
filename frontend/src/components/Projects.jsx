@@ -3,16 +3,11 @@ import { motion } from "framer-motion";
 import { ExternalLink, Plus, Pencil, Trash2 } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { API_BASE_URL, fetchProjects } from "../services/api";
+import { deleteProject, fetchProjects, getAssetUrl } from "../services/api";
 import { AddProjectModal } from "./AddProjectModal";
 import { EditProjectModal } from "./EditProjectModal";
 
 const categories = ["All", "Full Stack", "AI / ML", "Automation"];
-
-const getImageUrl = (path) => {
-  if (!path) return "";
-  return path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
-};
 
 export const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -59,25 +54,13 @@ export const Projects = () => {
     if (!adminKey) return;
 
     try {
-      const formData = new FormData();
-      formData.append("admin_key", adminKey);
-
-      const res = await fetch(`${API_BASE_URL}/api/v1/projects/${projectId}`, {
-        method: "DELETE",
-        body: formData,
-      });
-
-      if (res.ok) {
-        setProjects((prev) =>
-          prev.filter((p) => (p.id || p._id) !== projectId),
-        );
-      } else {
-        const err = await res.json();
-        alert(`Delete failed: ${err.detail || "Unauthorized"}`);
-      }
+      await deleteProject(projectId, adminKey);
+      setProjects((prev) =>
+        prev.filter((p) => (p.id || p._id) !== projectId),
+      );
     } catch (err) {
       console.error("Delete error:", err);
-      alert("Error occurred while deleting project.");
+      alert(`Delete failed: ${err.response?.data?.detail || "Please try again."}`);
     }
   };
 
@@ -165,7 +148,7 @@ export const Projects = () => {
                     {project.image_url && (
                       <div className="h-48 overflow-hidden relative">
                         <img
-                          src={getImageUrl(project.image_url)}
+                          src={getAssetUrl(project.image_url)}
                           alt={project.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />

@@ -5,6 +5,13 @@ const rawApiBaseUrl =
 
 export const API_BASE_URL = rawApiBaseUrl.replace(/\/$/, "");
 
+// Project images are stored as relative paths by the API, but accepting an
+// absolute URL as well makes existing externally-hosted images work too.
+export const getAssetUrl = (path) => {
+  if (!path) return "";
+  return /^https?:\/\//i.test(path) ? path : `${API_BASE_URL}${path}`;
+};
+
 const API = axios.create({
   baseURL: `${API_BASE_URL}/api/v1`,
 });
@@ -28,6 +35,19 @@ export const createProject = (projectData, adminKey) =>
       "x-admin-key": adminKey,
       "Content-Type": "multipart/form-data",
     },
+  });
+
+export const updateProject = (id, projectData, adminKey) =>
+  API.put(`/projects/${id}`, projectData, {
+    headers: {
+      "x-admin-key": adminKey,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+export const deleteProject = (id, adminKey) =>
+  API.delete(`/projects/${id}`, {
+    headers: { "x-admin-key": adminKey },
   });
 
 export const fetchSkills = () => API.get("/skills/");

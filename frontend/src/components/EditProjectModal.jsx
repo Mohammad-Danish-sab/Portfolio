@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-import { API_BASE_URL } from "../services/api";
+import { updateProject } from "../services/api";
 
 export const EditProjectModal = ({
   isOpen,
@@ -9,7 +9,7 @@ export const EditProjectModal = ({
   onProjectUpdated,
 }) => {
   const [formData, setFormData] = useState({
-    admin_key: import.meta.env.VITE_ADMIN_SECRET_KEY || "",
+    admin_key: "",
     title: "",
     description: "",
     category: "Full Stack",
@@ -23,7 +23,7 @@ export const EditProjectModal = ({
   useEffect(() => {
     if (project) {
       setFormData({
-        admin_key: import.meta.env.VITE_ADMIN_SECRET_KEY || "",
+        admin_key: "",
         title: project.title || "",
         description: project.description || "",
         category: project.category || "Full Stack",
@@ -47,29 +47,20 @@ export const EditProjectModal = ({
       const projectId = project.id || project._id;
 
       Object.entries(formData).forEach(([key, val]) => {
-        data.append(key, val);
+        if (key !== "admin_key") data.append(key, val);
       });
 
       if (image) {
         data.append("image", image);
       }
 
-      const res = await fetch(`${API_BASE_URL}/api/v1/projects/${projectId}`, {
-        method: "PUT",
-        body: data,
-      });
-
-      if (res.ok) {
-        alert("Project updated successfully!");
-        onProjectUpdated();
-        onClose();
-      } else {
-        const err = await res.json();
-        alert(`Update failed: ${err.detail || "Error updating project"}`);
-      }
+      await updateProject(projectId, data, formData.admin_key);
+      alert("Project updated successfully!");
+      onProjectUpdated();
+      onClose();
     } catch (err) {
       console.error("Update error:", err);
-      alert("Failed to submit project updates.");
+      alert(`Update failed: ${err.response?.data?.detail || "Please try again."}`);
     } finally {
       setSubmitting(false);
     }

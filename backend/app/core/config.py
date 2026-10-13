@@ -14,6 +14,9 @@ class Settings(BaseSettings):
         "http://127.0.0.1:5174,http://localhost:3000,"
         "https://protofolio-3kvh.onrender.com"
     )
+    # Allows the Vercel production URL and preview deployments. Set this to an
+    # exact domain pattern in Render when a stricter policy is desired.
+    ALLOWED_ORIGIN_REGEX: str = r"https://.*\.vercel\.app"
 
     # Direct database connection string
     DATABASE_URL: str
