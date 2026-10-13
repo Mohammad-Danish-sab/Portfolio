@@ -35,14 +35,14 @@ export const About = () => {
             transition={{ duration: 0.6 }}
             className="flex justify-center lg:col-span-5"
           >
-            <div className="group relative">
-              <div className="absolute -inset-1 rounded-2xl bg-linear-to-r from-red-400 to-yellow-600 opacity-40 blur transition duration-500 group-hover:opacity-75" />
+            <div className="group relative w-full max-w-xs">
+              <div className="absolute -inset-1 rounded-3xl bg-linear-to-br from-[#B65950] via-[#D69A7A] to-[#97A26A] opacity-45 blur-md transition duration-500 group-hover:opacity-80" />
 
-              <div className="relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 p-2 shadow-2xl">
+              <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-white p-2 shadow-xl transition duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
                 <img
                   src={profile}
                   alt="Mohammad Danish - Full Stack Developer"
-                  className="h-80 w-full max-w-sm rounded-xl object-cover grayscale transition-all duration-500 group-hover:grayscale-0 sm:h-105 lg:h-115"
+                  className="h-72 w-full rounded-2xl object-cover object-top transition duration-500 group-hover:scale-[1.03] sm:h-80 lg:h-96"
                   onError={(e) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src =
