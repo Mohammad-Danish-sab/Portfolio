@@ -3,7 +3,7 @@ import { Download, Briefcase, Award, Cpu } from "lucide-react";
 
 // Image now served from the public/ folder — no bundler import needed.
 // Place your photo at: frontend/public/profile.jpg
-const profile = "/profile.jpg";
+const profile = "/profile.jpeg";
 
 const stats = [
   {
