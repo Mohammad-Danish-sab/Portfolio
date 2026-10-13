@@ -25,9 +25,9 @@ const stats = [
 
 export const About = () => {
   return (
-    <section id="about" className="relative bg-[#faf9f7] py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+    <section id="about" className="relative bg-[#faf9f7] py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -42,7 +42,7 @@ export const About = () => {
                 <img
                   src={profile}
                   alt="Mohammad Danish - Full Stack Developer"
-                  className="h-115 w-full max-w-sm rounded-xl object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                  className="h-80 w-full max-w-sm rounded-xl object-cover grayscale transition-all duration-500 group-hover:grayscale-0 sm:h-105 lg:h-115"
                   onError={(e) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src =
@@ -64,11 +64,11 @@ export const About = () => {
               About Me
             </h2> */}
 
-            <h3 className="mb-6 text-3xl font-bold text-[#B85C38] md:text-4xl">
+            <h3 className="mb-6 text-3xl font-bold text-[#B85C38] sm:text-4xl">
               Engineering Intelligent Web Platforms & AI Automations
             </h3>
 
-            <p className="mb-6 leading-relaxed text-[#302016] text-lg">
+            <p className="mb-6 leading-relaxed text-[#302016] text-base sm:text-lg">
               I am a Full Stack Developer passionate about building scalable web
               applications, intelligent AI solutions, and full-stack automation
               platforms that solve real-world problems. I focus on creating
@@ -79,7 +79,7 @@ export const About = () => {
               innovative, efficient, and future-ready digital solutions.
             </p>
 
-            <p className="mb-8 leading-relaxed text-[#302016] text-lg">
+            <p className="mb-8 leading-relaxed text-[#302016] text-base sm:text-lg">
               My focus is on creating modern, high-performance applications
               using React, Python, FastAPI, Node.js, and databases while
               exploring Generative AI, automation, and intelligent systems.

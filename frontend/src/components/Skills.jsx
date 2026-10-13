@@ -179,15 +179,15 @@ export const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative overflow-hidden bg-[#faf9f7] py-24"
+      className="relative overflow-hidden bg-[#faf9f7] py-16 md:py-24"
     >
       <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-[#B65950]/5 blur-3xl" />
 
       <div className="pointer-events-none absolute -right-32 bottom-10 h-80 w-80 rounded-full bg-[#B85C38]/5 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         {" "}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between mb-8 md:mb-12">
           {" "}
           <h3 className="text-3xl md:text-5xl font-bold text-[#B95712]">
             Technical Skills{" "}
@@ -298,7 +298,7 @@ export const Skills = () => {
             transition={{
               duration: 0.25,
             }}
-            className="relative w-full max-w-md overflow-hidden rounded-3xl border border-white/20 bg-[#FAF7F8] shadow-2xl"
+            className="relative max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-3xl border border-white/20 bg-[#FAF7F8] shadow-2xl"
           >
             <div className="bg-[#B65950] px-6 py-6 text-white">
               <button

@@ -32,10 +32,10 @@ export const Services = () => {
   return (
     <section
       id="services"
-      className="py-24 relative bg-[#faf9f7]"
+      className="py-16 md:py-24 relative bg-[#faf9f7]"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <h3 className="text-3xl md:text-5xl font-bold text-[#B65950]">
             Services & Capabilities
           </h3>
@@ -55,7 +55,7 @@ export const Services = () => {
                   duration: 0.5,
                   delay: index * 0.1,
                 }}
-                className="relative overflow-hidden bg-white p-8 rounded-2xl transition-all duration-300 group hover:-translate-y-1"
+                className="relative overflow-hidden bg-white p-6 sm:p-8 rounded-2xl transition-all duration-300 group hover:-translate-y-1"
               >
                 {/* Top Border */}
                 <div className="absolute left-0 top-0 h-1 w-full bg-linear-to-r from-[#B65950] to-[#D69A7A] opacity-70" />

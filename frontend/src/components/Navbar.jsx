@@ -52,16 +52,16 @@ export const Navbar = () => {
         isScrolled ? "py-3 shadow-lg" : "py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         <a
           href="#home"
           onClick={(event) => handleNavigation(event, "#home")}
-          className="flex items-center gap-2 text-xl font-bold tracking-wider group"
+          className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-wider group"
         >
           <div className="p-2 rounded-lg bg-[#e6e5e4] text-black font-extrabold">
             <Code2 size={20} />
           </div>
-          <span className="bg-[#B85C38] bg-clip-text text-transparent font-bold text-2xl">
+          <span className="bg-[#B85C38] bg-clip-text text-transparent font-bold text-xl sm:text-2xl">
             CodeWith<span className="text-[#B85C38]">Danish</span>
           </span>
         </a>
@@ -105,7 +105,7 @@ export const Navbar = () => {
       {mobileMenuOpen && (
         <nav
           id="mobile-navigation"
-          className="md:hidden border-t border-[#2D394A]/15 px-6 py-6 mt-3 flex flex-col gap-4 bg-[#BFD9D5] shadow-lg"
+          className="md:hidden border-t border-[#2D394A]/15 px-4 sm:px-6 py-5 mt-3 flex flex-col gap-4 bg-[#BFD9D5] shadow-lg"
         >
           {navLinks.map((link) => (
             <a

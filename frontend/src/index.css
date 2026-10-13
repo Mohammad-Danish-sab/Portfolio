@@ -23,6 +23,13 @@ body {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body,
+#root {
+  min-width: 320px;
+  overflow-x: hidden;
 }
 
 section[id] {

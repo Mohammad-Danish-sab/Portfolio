@@ -31,7 +31,7 @@ export const Footer = () => {
 
   return (
     <footer className=" bg-[#0E0E0E] text-slate-400">
-      <div className="max-w-7xl mx-auto px-6 pt-12 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-slate-800/60">
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-2.5">
@@ -77,7 +77,7 @@ export const Footer = () => {
             </p>
             <form
               onSubmit={(e) => e.preventDefault()}
-              className="flex gap-2 pt-1"
+              className="flex flex-col sm:flex-row gap-2 pt-1"
             >
               <input
                 type="email"

@@ -49,8 +49,8 @@ export const ProjectDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#C6D0C7] py-12 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto bg-[#EFEEE4] rounded-3xl p-6 md:p-10 shadow-lg border border-gray-100">
+    <div className="min-h-screen bg-[#C6D0C7] py-8 sm:py-12 px-3 sm:px-4 md:px-8">
+      <div className="max-w-4xl mx-auto bg-[#EFEEE4] rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-10 shadow-lg border border-gray-100">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-[#B95712] mb-6 transition-colors"
@@ -68,7 +68,7 @@ export const ProjectDetail = () => {
           </span>
         </div>
 
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex flex-wrap items-center gap-3 mb-8">
           {project.github_url && (
             <a
               href={project.github_url}
@@ -96,7 +96,7 @@ export const ProjectDetail = () => {
             <img
               src={getAssetUrl(project.image_url)}
               alt={project.title}
-              className="w-full h-87.5 md:h-112.5 object-cover"
+              className="w-full h-64 sm:h-87.5 md:h-112.5 object-cover"
             />
           </div>
         )}

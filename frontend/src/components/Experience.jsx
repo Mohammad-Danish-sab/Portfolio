@@ -85,16 +85,16 @@ export const Experience = () => {
   return (
     <section
       id="experience"
-      className="py-24 relative bg-[#faf9f7]"
+      className="py-16 md:py-24 relative bg-[#faf9f7]"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <h3 className="text-3xl md:text-5xl font-bold text-[#B95712]">
             Experience Timeline
           </h3>
         </div>
 
-        <div className="max-w-3xl mx-auto relative border-l-2 border-[#97A26A] pl-6 md:pl-8 space-y-12">
+        <div className="max-w-3xl mx-auto relative border-l-2 border-[#97A26A] pl-5 sm:pl-6 md:pl-8 space-y-8 md:space-y-12">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.role + index}
@@ -111,7 +111,7 @@ export const Experience = () => {
               <div className="absolute -left-[31px] md:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#B65950] border-2 border-red-400 group-hover:scale-125 transition-transform" />
 
               {/* Experience Card */}
-              <div className="relative overflow-hidden bg-white p-6 rounded-2xl transition-colors">
+              <div className="relative overflow-hidden bg-white p-5 sm:p-6 rounded-2xl transition-colors">
                 
                 {/* Top Gradient Border */}
                 <div className="absolute left-0 top-0 h-1 w-full bg-linear-to-r from-[#B65950] to-[#D69A7A] opacity-70" />

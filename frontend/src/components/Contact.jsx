@@ -19,9 +19,9 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative bg-[#faf9f7]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    <section id="contact" className="py-16 md:py-24 relative bg-[#faf9f7]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
           
           <div className="lg:col-span-5">
             <h3 className="text-3xl md:text-5xl font-bold text-[#B95712] mb-6">Let's Build Something Together</h3>
@@ -53,7 +53,7 @@ export const Contact = () => {
           </div>
 
           <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl space-y-6">
+            <form onSubmit={handleSubmit} className="bg-white p-5 sm:p-8 rounded-2xl space-y-6">
               {status.success && (
                 <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-3">
                   <CheckCircle size={20} />
