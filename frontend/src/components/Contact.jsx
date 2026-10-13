@@ -46,7 +46,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="text-s text-red-500 font-bold">Location</div>
-                  <div className="text-gray-600 font-medium">New Delhi, India (Available Remote)</div>
+                  <div className="text-gray-600 font-medium">New Delhi, India (Available on site and Remote)</div>
                 </div>
               </div>
             </div>
