@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "AI & Full Stack Developer Portfolio API"
@@ -6,7 +7,7 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
 
     # Security Key
-    ADMIN_SECRET_KEY: str = "admin123"
+    ADMIN_SECRET_KEY: str = Field(min_length=1)
 
     # Allowed frontend origins for CORS
     ALLOWED_ORIGINS: str = (
