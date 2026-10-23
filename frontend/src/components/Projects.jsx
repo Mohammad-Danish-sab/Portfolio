@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Plus, Pencil, Trash2 } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ExternalLink,
+  Plus,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { deleteProject, fetchProjects, getAssetUrl } from "../services/api";
@@ -13,8 +20,10 @@ export const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
+  const visibleProjects = showAllProjects ? projects : projects.slice(0, 3);
 
   const loadProjects = async () => {
     setLoading(true);
@@ -73,16 +82,22 @@ export const Projects = () => {
   return (
     <section id="projects" className="py-16 md:py-24 relative bg-[#faf9f7]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-4">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-5">
           <div className="text-center md:text-left">
-            <h3 className="text-3xl md:text-5xl font-bold text-[#B95712]">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#97A26A] mb-3">
+              Selected work
+            </p>
+            <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-[#B95712]">
               Featured Projects
             </h3>
+            <p className="mt-3 max-w-xl text-sm md:text-base leading-relaxed text-gray-600">
+              A selection of things I've built across web, AI, and automation.
+            </p>
           </div>
 
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#B95712] text-white rounded-xl text-sm font-medium hover:bg-[#a04a0e] transition-all shadow-sm"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[#B95712] text-white rounded-xl text-sm font-semibold hover:bg-[#a04a0e] transition-all shadow-sm"
           >
             <Plus size={16} /> Admin Upload
           </button>
@@ -103,20 +118,31 @@ export const Projects = () => {
           />
         )}
 
-        <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-12">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                activeCategory === cat
-                  ? "bg-[#B95712] text-white shadow-md"
-                  : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <div className="flex flex-wrap justify-center md:justify-start gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  setShowAllProjects(false);
+                }}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  activeCategory === cat
+                    ? "bg-[#302016] text-white shadow-sm"
+                    : "bg-white text-gray-600 hover:text-[#B95712] border border-gray-200 hover:border-[#B95712]/40"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          {!loading && projects.length > 0 && (
+            <p className="text-center sm:text-right text-xs font-medium text-gray-500">
+              Showing {visibleProjects.length} of {projects.length}{" "}
+              {projects.length === 1 ? "project" : "projects"}
+            </p>
+          )}
         </div>
 
         {loading ? (
@@ -128,110 +154,132 @@ export const Projects = () => {
             No projects found in this category.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, idx) => {
-              const tags = project.technologies || project.tags || [];
-              const projectId = project.id || project._id;
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {visibleProjects.map((project, idx) => {
+                const tags = project.technologies || project.tags || [];
+                const projectId = project.id || project._id;
 
-              return (
-                <motion.div
-                  key={projectId || idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="bg-white rounded-2xl shadow-m overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group cursor-pointer relative"
-                >
-                  <Link
-                    to={`/projects/${projectId}`}
-                    className="flex flex-col h-full"
+                return (
+                  <motion.div
+                    key={projectId || idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="bg-white rounded-2xl border border-[#302016]/[0.06] shadow-sm overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-[#302016]/10 transition-all duration-300 flex flex-col group cursor-pointer relative"
                   >
-                    {project.image_url && (
-                      <div className="h-48 overflow-hidden relative">
-                        <img
-                          src={getAssetUrl(project.image_url)}
-                          alt={project.title}
-                          loading="lazy"
-                          decoding="async"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    )}
-
-                    <div className="p-6 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-xs font-mono text-[#B95712] px-2.5 py-1 rounded-md bg-[#B95712]/10 border border-[#B95712]/20">
-                            {project.category}
-                          </span>
-
-                          <div className="flex items-center gap-3 text-gray-600">
-                            <button
-                              onClick={(e) => handleEdit(e, project)}
-                              title="Edit Project"
-                              className="p-1 hover:text-[#B95712] transition-colors"
-                            >
-                              <Pencil size={16} />
-                            </button>
-
-                            <button
-                              onClick={(e) => handleDelete(e, projectId)}
-                              title="Delete Project"
-                              className="p-1 hover:text-red-600 transition-colors"
-                            >
-                              <Trash2 size={16} />
-                            </button>
-
-                            {project.github_url && (
-                              <a
-                                href={project.github_url}
-                                target="_blank"
-                                rel="noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="hover:text-[#B95712] transition-colors"
-                              >
-                                <FaGithub size={18} />
-                              </a>
-                            )}
-                            {project.live_url && (
-                              <a
-                                href={project.live_url}
-                                target="_blank"
-                                rel="noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="hover:text-[#B95712] transition-colors"
-                              >
-                                <ExternalLink size={18} />
-                              </a>
-                            )}
-                          </div>
-                        </div>
-
-                        <h4 className="text-xl font-bold text-[#B95712] mb-2 group-hover:text-[#B95712] transition-colors">
-                          {project.title}
-                        </h4>
-                        <p className="text-gray-800 text-sm leading-relaxed mb-4 line-clamp-3">
-                          {project.description}
-                        </p>
-                      </div>
-
-                      {tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
-                          {tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs font-mono text-gray-600 bg-gray-100 px-2.5 py-1 rounded border border-gray-200"
-                            >
-                              {tag}
-                            </span>
-                          ))}
+                    <Link
+                      to={`/projects/${projectId}`}
+                      className="flex flex-col h-full"
+                    >
+                      {project.image_url && (
+                        <div className="h-48 md:h-52 overflow-hidden relative bg-[#e9e5df]">
+                          <img
+                            src={getAssetUrl(project.image_url)}
+                            alt={project.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-black/30 to-transparent pointer-events-none" />
                         </div>
                       )}
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
+
+                      <div className="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-xs font-mono text-[#B95712] px-2.5 py-1 rounded-md bg-[#B95712]/10 border border-[#B95712]/20">
+                              {project.category}
+                            </span>
+
+                            <div className="flex items-center gap-3 text-gray-600">
+                              <button
+                                onClick={(e) => handleEdit(e, project)}
+                                title="Edit Project"
+                                className="p-1 hover:text-[#B95712] transition-colors"
+                              >
+                                <Pencil size={16} />
+                              </button>
+
+                              <button
+                                onClick={(e) => handleDelete(e, projectId)}
+                                title="Delete Project"
+                                className="p-1 hover:text-red-600 transition-colors"
+                              >
+                                <Trash2 size={16} />
+                              </button>
+
+                              {project.github_url && (
+                                <a
+                                  href={project.github_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="hover:text-[#B95712] transition-colors"
+                                >
+                                  <FaGithub size={18} />
+                                </a>
+                              )}
+                              {project.live_url && (
+                                <a
+                                  href={project.live_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="hover:text-[#B95712] transition-colors"
+                                >
+                                  <ExternalLink size={18} />
+                                </a>
+                              )}
+                            </div>
+                          </div>
+
+                          <h4 className="text-xl font-bold text-[#302016] mb-2 group-hover:text-[#B95712] transition-colors">
+                            {project.title}
+                          </h4>
+                          <p className="text-gray-800 text-sm leading-relaxed mb-4 line-clamp-3">
+                            {project.description}
+                          </p>
+                        </div>
+
+                        {tags.length > 0 && (
+                          <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
+                            {tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="text-xs font-mono text-gray-600 bg-gray-100 px-2.5 py-1 rounded border border-gray-200"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+            {projects.length > 3 && (
+              <div className="mt-10 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAllProjects((showAll) => !showAll)}
+                  aria-expanded={showAllProjects}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#B95712]/30 bg-white px-6 py-3 text-sm font-semibold text-[#B95712] shadow-sm transition-all hover:bg-[#B95712] hover:text-white hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B95712] focus-visible:ring-offset-2"
+                >
+                  {showAllProjects
+                    ? "Show fewer projects"
+                    : "View more projects"}
+                  {showAllProjects ? (
+                    <ArrowUp size={16} />
+                  ) : (
+                    <ArrowDown size={16} />
+                  )}
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>
